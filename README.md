@@ -4,7 +4,7 @@ Design patterns are categorized into three main types: Creational, Structural, a
 
 1 - Singleton : Ensures a class has only one instance and provides a global point of access to it
 
-2 -  Factory Method : Defines an interface for creating an object, but lets subclasses alter the type of objects that will be created
+2 -  [Factory Method](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/example_factory_method) : Defines an interface for creating an object, but lets subclasses alter the type of objects that will be created
 
 3 - Abstract Factory : Provides an interface for creating families of related or dependent objects without specifying their concrete classes
 
