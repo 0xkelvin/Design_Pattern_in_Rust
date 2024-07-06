@@ -6,7 +6,7 @@ Design patterns are categorized into three main types: Creational, Structural, a
 
 2 -  [Factory Method](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/example_factory_method) : Defines an interface for creating an object, but lets subclasses alter the type of objects that will be created
 
-3 - Abstract Factory : Provides an interface for creating families of related or dependent objects without specifying their concrete classes
+3 - [Abstract Factory](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/example_abstract_factory) : Provides an interface for creating families of related or dependent objects without specifying their concrete classes
 
 4 - Builder : Separates the construction of a complex object from its representation, allowing the same construction process to create different representations
 
