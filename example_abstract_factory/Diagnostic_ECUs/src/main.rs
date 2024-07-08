@@ -1,9 +1,11 @@
+use std::any::Any;
 use std::collections::HashMap;
 
 // AbstractProduct: ECU
-trait ECU {
+trait ECU: Any {
     fn connect(&self);
     fn configure(&self, config: &dyn ECUConfiguration);
+    fn as_any(&self) -> &dyn Any;
 }
 
 // ConcreteProduct: BMS
@@ -15,7 +17,11 @@ impl ECU for BMS {
     }
 
     fn configure(&self, config: &dyn ECUConfiguration) {
-        println!("Configuring BMS with setting: {:?}", config.setting());
+        println!("Configuring BMS with setting: {:?}", config.get_settings());
+    }
+
+    fn as_any(&self) -> &dyn Any {
+        self
     }
 }
 
@@ -30,8 +36,12 @@ impl ECU for MotorController {
     fn configure(&self, config: &dyn ECUConfiguration) {
         println!(
             "Configuring Motor Controller with setting: {:?}",
-            config.setting()
+            config.get_settings()
         );
+    }
+
+    fn as_any(&self) -> &dyn Any {
+        self
     }
 }
 
@@ -48,6 +58,10 @@ impl ECU for OnBoardCharger {
             "Configuring On Board Charger with settings: {:?}",
             config.get_settings()
         );
+    }
+
+    fn as_any(&self) -> &dyn Any {
+        self
     }
 }
 
@@ -66,6 +80,10 @@ impl ECU for VehicleControlECU {
             "Configuring Vehicle Control ECU with settings: {:?}",
             config.get_settings()
         );
+    }
+
+    fn as_any(&self) -> &dyn Any {
+        self
     }
 }
 
@@ -379,8 +397,8 @@ fn main() {
         "MotorController" => Box::new(MotorControllerFactory),
         "OnBoardCharger" => Box::new(OnBoardChargerFactory),
         "VehicleControlECU" => Box::new(VehicleControlECUFactory),
-        _ => panic!("Unsupported ECU type")
-    }
+        _ => panic!("Unsupported ECU type"),
+    };
 
     let vehicle_control_ecu = factory.create_ecu();
     let mut configuration = factory.create_configuration();
@@ -388,4 +406,21 @@ fn main() {
     let data_collector = factory.create_data_collector();
 
     vehicle_control_ecu.connect();
+
+    let mut settings = HashMap::new();
+    settings.insert("setting1".to_string(), "value1".to_string());
+    configuration.set_settings(settings.clone());
+    vehicle_control_ecu.configure(&*configuration);
+
+    // Connect and configure all ECUs through Vehicle Control ECU
+    if let Some(vce) = vehicle_control_ecu
+        .as_any()
+        .downcast_ref::<VehicleControlECU>()
+    {
+        vce.connect_to_all_ecus();
+        vce.configure_all_ecus(&*configuration);
+    }
+
+    println!("Running Diagnostics: {:?}", diagnostics.run_diagnostics());
+    println!("Collecting Data: {:?}", data_collector.collect_data());
 }
