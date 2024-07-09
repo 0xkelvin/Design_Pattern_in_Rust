@@ -91,3 +91,72 @@ trait DBFactory {
     fn create_command(&self) -> Box<dyn DBCommand>;
     fn create_reader(&self) -> Box<dyn DBReader>;
 }
+
+struct SQLServerFactory;
+
+impl DBFactory for SQLServerFactory {
+    fn create_connection(&self) -> Box<dyn DBConnection> {
+        Box::new(SQLServerConnection)
+    }
+
+    fn create_command(&self) -> Box<dyn DBCommand> {
+        Box::new(SQLServerCommand)
+    }
+
+    fn create_reader(&self) -> Box<dyn DBReader> {
+        Box::new(SQLServerReader)
+    }
+}
+
+struct MySQLFactory;
+
+impl DBFactory for MySQLFactory {
+    fn create_connection(&self) -> Box<dyn DBConnection> {
+        Box::new(MySQLConnection)
+    }
+
+    fn create_command(&self) -> Box<dyn DBCommand> {
+        Box::new(MySQLCommand)
+    }
+
+    fn create_reader(&self) -> Box<dyn DBReader> {
+        Box::new(MySQLReader)
+    }
+}
+
+struct PostgreSQLFactory;
+
+impl DBFactory for PostgreSQLFactory {
+    fn create_connection(&self) -> Box<dyn DBConnection> {
+        Box::new(PostgreSQLConnection)
+    }
+
+    fn create_command(&self) -> Box<dyn DBCommand> {
+        Box::new(PostgreSQLCommand)
+    }
+
+    fn create_reader(&self) -> Box<dyn DBReader> {
+        Box::new(PostgreSQLReader)
+    }
+}
+
+//Client Code
+fn main() {
+    let db_type = "PostgreSQL"; // This can be dynamic based on runtime conditions
+    let factory: Box<dyn DBFactory> = match db_type {
+        "SQLServer" => Box::new(SQLServerFactory),
+        "MySQL" => Box::new(MySQLFactory),
+        "PostgreSQL" => Box::new(PostgreSQLFactory),
+        _ => panic!("Unsupported DB type"),
+    };
+
+    let connection = factory.create_connection();
+    let command = factory.create_command();
+    let reader = factory.create_reader();
+
+    connection.connect();
+    command.execute("SELECT * FROM users");
+    let data = reader.read();
+
+    println!("Data: {:?}", data);
+}
