@@ -1,5 +1,5 @@
 [package]
-name = "Logger"
+name = "Global_Configuration_Manager"
 version = "0.1.0"
 edition = "2021"
 
