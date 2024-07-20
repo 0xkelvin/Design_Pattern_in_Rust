@@ -1,12 +1,12 @@
-Design patterns are categorized into three main types: Creational, Structural, and Behavioral. Here’s a catalog of some common design patterns within each category, tailored for Rust:
+Design patterns are categorized into three main types: [Creational](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/Creational), Structural, and Behavioral. Here’s a catalog of some common design patterns within each category, tailored for Rust:
 
-## Creational Patterns
+## [Creational Patterns](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/Creational)
 
-1 - Singleton : Ensures a class has only one instance and provides a global point of access to it
+1 - [Singleton](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/Creational/example_singleton_pattern) : Ensures a class has only one instance and provides a global point of access to it
 
-2 -  [Factory Method](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/example_factory_method) : Defines an interface for creating an object, but lets subclasses alter the type of objects that will be created
+2 -  [Factory Method](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/Creational/example_factory_method) : Defines an interface for creating an object, but lets subclasses alter the type of objects that will be created
 
-3 - [Abstract Factory](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/example_abstract_factory) : Provides an interface for creating families of related or dependent objects without specifying their concrete classes
+3 - [Abstract Factory](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/Creational/example_abstract_factory) : Provides an interface for creating families of related or dependent objects without specifying their concrete classes
 
 4 - Builder : Separates the construction of a complex object from its representation, allowing the same construction process to create different representations
 
