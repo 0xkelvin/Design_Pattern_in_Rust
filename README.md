@@ -8,7 +8,7 @@ Design patterns are categorized into three main types: [Creational](https://gith
 
 3 - [Abstract Factory](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/Creational/example_abstract_factory) : Provides an interface for creating families of related or dependent objects without specifying their concrete classes
 
-4 - Builder : Separates the construction of a complex object from its representation, allowing the same construction process to create different representations
+4 - [Builder](https://github.com/0xkelvin/Design_Pattern_in_Rust/tree/main/Creational/example_builder_pattern) : Separates the construction of a complex object from its representation, allowing the same construction process to create different representations
 
 5 - Prototype : Specifies the kinds of objects to create using a prototypical instance and creates new objects by copying this prototype
 
