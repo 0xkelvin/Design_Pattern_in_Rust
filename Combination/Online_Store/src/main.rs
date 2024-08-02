@@ -159,3 +159,37 @@ impl Subject for OrderSystem {
         }
     }
 }
+
+// Use the Combined Patterns in the Client Code
+fn main() {
+    // Strategy pattern: payment methods
+    let credit_card_payment = Box::new(CreditCardPayment::new("John Doe", "1234-5678-9012-3456"));
+    let paypal_payment = Box::new(PayPalPayment::new("john.doe@example.com"));
+
+    // Decorator pattern: order with discounts
+    let basic_order: Box<dyn Order> = Box::new(BasicOrder::new(100.0, "Basic Order"));
+    let discounted_order = DiscountDecorator::new(basic_order, 10.0, "Holiday Discount");
+
+    // Observer pattern: notifications
+    let mut order_system = OrderSystem::new();
+    let customer1 = Box::new(Customer::new("Alice"));
+    let customer2 = Box::new(Customer::new("Bob"));
+
+    order_system.register_observer(customer1);
+    order_system.register_observer(customer2);
+
+    // Process order with credit card payment
+    println!("Processing order with credit card:");
+    credit_card_payment.pay(discounted_order.get_total());
+    order_system.notify_observers("Order placed with credit card");
+
+    // Process order with PayPal payment
+    println!("\nProcessing order with PayPal:");
+    paypal_payment.pay(discounted_order.get_total());
+    order_system.notify_observers("Order placed with PayPal");
+
+    // Show final order details
+    println!("\nFinal Order Details:");
+    println!("Description: {}", discounted_order.get_description());
+    println!("Total: ${:.2}", discounted_order.get_total());
+}
